@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        schema::create('themes', function(Blueprint $table){
+        Schema::create('messages', function(Blueprint $table){
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->foreignId('hackathon_id')->nullable()->constrained('hackathons');
-            $table->string('cover');
-            $table->timestamps();
+            $table->foreignId('sender_id')->constrainted('users');
+            $table->string('message');
+            $table->foreignId('receiver_id')->constrained('users');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        schema::drop('themes');
+        schema::drop('messages');
     }
 };

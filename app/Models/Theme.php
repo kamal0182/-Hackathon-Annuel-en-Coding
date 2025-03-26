@@ -11,7 +11,7 @@ class Theme extends Model
         'description',
         'cover'
     ];
-    public function hackaython()
+    public function hackathon()
     {
         return $this->belongsTo(Hackathon::class);
     }

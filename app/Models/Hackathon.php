@@ -9,7 +9,8 @@ class Hackathon extends Model
     protected $fillable = [
         'title',
         'date',
-        'lieu'
+        'lieu',
+        'total_team_member'
     ];
     public function  organisateur()
     {
@@ -17,10 +18,14 @@ class Hackathon extends Model
     }
     public function teams()
     {
-        return $this->hasMany(Team::class);
+        return $this->hasMany(Team::class,'hackathon_id');
     }
     public function rules()
     {
-        return $this->belongsToMany(Rule::class);
+        return $this->belongsToMany(Rule::class , "user_rules");
+    }
+    public function themes()
+    {
+        return $this->hasMany(Theme::class);
     }
 }

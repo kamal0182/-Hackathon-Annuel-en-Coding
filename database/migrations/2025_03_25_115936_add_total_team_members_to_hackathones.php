@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        schema::create('themes', function(Blueprint $table){
-            $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->foreignId('hackathon_id')->nullable()->constrained('hackathons');
-            $table->string('cover');
-            $table->timestamps();
+        Schema::table('hackathons', function (Blueprint $table) {
+            $table->integer('total_team_member');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        schema::drop('themes');
+        Schema::table('hackathons', function (Blueprint $table) {
+            $table->dropColumn('total_team_member');
+        });
     }
 };

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -71,12 +74,32 @@ class User extends Authenticatable  implements JWTSubject
     {
         return $this->belongsToMany(Role::class,'user_roles');
     }
+    public function teams()
+    {
+        return $this->belongsTo(Team::class);
+    }
     public function hackathons()
     {
         return $this->hasMany(Hackathon::class);
     }
     public function team()
     {
-        return $this->hasOne(Team::class);
+        return $this->hasMany(Team::class,'creator_id');
+    }
+    public function hasRole($builder)
+    {
+        // return "dacac";
+        $roles =  DB::table('user_roles')->join('users','user_roles.user_id','=' ,'users.id' )->join('roles','user_roles.role_id','=' ,'roles.id' )->where('users.id', '=' ,$builder->id)->select('users.name')->get();
+        return $roles ;
+        // $->whereHas('role',function (Builder $query){
+        //     $query->where('name', 'admin');
+        // })->get;
+    }
+    public function hasTeam()
+    {
+        return $this->team ;
+        if($this->team)  {
+            return true ;
+        }
     }
 }

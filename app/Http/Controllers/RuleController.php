@@ -22,11 +22,12 @@ class RuleController extends Controller
     }
     public function create(Request $request)
     {
-        foreach($request->name as $name){
+        // return "ascasc";
+        foreach($request->names as $name){
 
-        $validated = $name->validate([
-            'name' => 'required'
-        ]) ;
+        // $validated = $name->validate([
+        //     'name' => 'required'
+        // ]) ;
             $rule = Rule::create([
                 'name' => $name
             ]);

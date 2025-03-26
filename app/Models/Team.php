@@ -9,15 +9,15 @@ class Team extends Model
     protected $fillable = [
         'name'
     ];
-    public function hackathon()
+    public function hackathon() 
     {
-        return $this->belongsTo(Hackathon::class);
+        return $this->belongsTo(Hackathon::class,'hackathon_id');
     }
     public function jury()
     {
         return $this->belongsTo(Jury::class);
     }
-    public function creator()
+    public function captain()
     {
         return $this->belongsTo(User::class,'creator_id');
     }
