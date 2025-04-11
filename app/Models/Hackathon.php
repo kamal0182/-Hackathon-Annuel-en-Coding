@@ -24,6 +24,10 @@ class Hackathon extends Model
     {
         return $this->belongsToMany(Rule::class , "user_rules");
     }
+    public function jurs()
+    {
+        return $this->hasMany(Jury::class);
+    }
     public function themes()
     {
         return $this->hasMany(Theme::class);

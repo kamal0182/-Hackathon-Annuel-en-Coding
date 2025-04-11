@@ -23,7 +23,6 @@ class TeamController extends Controller
     public function participe(Request $request)
     {
         $team = $this->findTeamById($request->id);
-
         $user = auth()->user();
         $team = $this->canParticipe($team->participants,$team->hackathon->total_team_member, $user  , $team );
         return $team ;
@@ -36,6 +35,11 @@ class TeamController extends Controller
     public function create(Request $request )
     {
         $user =  auth()->user();
+        if($user->team){
+            return response()->json([
+                'message' => 'you can just create one team'
+            ]);
+        }
         return $user->team;
         return $user->teams ;
          $user->teams;
@@ -69,14 +73,12 @@ class TeamController extends Controller
         }
         return $team ;
         $user->teams->associate($teams);
-        return "Ascasc";
         return "Welcome to  $teams->name";
     }
     public function teamnumber($team, $number)
     {
         $numeberofteam = count($team)  + 1 ;
         $openplace = $number -  $numeberofteam;
-
         if($numeberofteam >  $number)
         {
             return "no places left";

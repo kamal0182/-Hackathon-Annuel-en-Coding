@@ -14,4 +14,8 @@ class Jury extends Model
     {
         return $this->hasMany(JuryMemmber::class);
     }
+    public function hacakthon()
+    {
+        return $this->belongsTo(Hackathon::class);
+    }
 }

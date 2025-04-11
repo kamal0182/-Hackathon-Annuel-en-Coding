@@ -42,7 +42,8 @@ Route::get('teams/{id}', [TeamController::class , 'search'])->middleware('auth:a
 Route::post('teams', [TeamController::class , 'create'])->middleware('auth:api');
 Route::get('/hackathon/{id}', [HackathonController::class, 'search'])->middleware('auth:api');
 Route::post('/participe', [TeamController::class, 'participe'])->middleware('auth:api');
-
+Route::post('message', [TeamController::class , 'sendmesage'])->middleware('auth:api');
+Route::post('Jury', [UserController::class , 'createJury'])->middleware('auth:api');
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

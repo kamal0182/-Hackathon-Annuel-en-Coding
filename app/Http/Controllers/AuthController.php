@@ -45,7 +45,6 @@ class AuthController extends Controller
 
         // return response()->json(compact('user', 'role' , 'token'), 201);
         return response()->json(compact( 'role' , 'token'), 201);
-
     }
     public function hasRoles()
     {
@@ -64,25 +63,19 @@ class AuthController extends Controller
                 if (! $token = JWTAuth::attempt($credentials)) {
                     return response()->json(['error' => 'Invalid credentials'], 401);
                 }
-
-                // Get the authenticated user.
                 $user = auth()->user();
-                // return $user ;
-                // (optional) Attach the role to the token.
                 $token = JWTAuth::claims(['role' => $user->role])->fromUser($user);
                 return response()->json(compact('token'));
             } catch (JWTException $e) {
                 return response()->json(['error' => 'Could not create token'], 500);
             }
-
     }
-    public function   me()
+    public function me()
     {
         return response()->json(auth()->user());
     }
     public function logout()
     {
-        // return "Ascasc";
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
